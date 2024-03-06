@@ -1,14 +1,16 @@
 "use client";
 import { Modal, message } from "antd";
 import useListTodoStore from "../store";
+import { useShallow } from "zustand/react/shallow";
 
 export default function ModalConfirm() {
-  const openModalState = useListTodoStore(
-    (state) => state?.app_store.openModal
+  const { setStatusModal, removeTodoAction, openModalState } = useListTodoStore(
+    useShallow((state) => ({
+      setStatusModal: state?.setStatusModal,
+      removeTodoAction: state?.removeTodo,
+      openModalState: state?.app_store?.openModal,
+    }))
   );
-  const setStatusModal = useListTodoStore((state) => state?.setStatusModal);
-
-  const removeTodoAction = useListTodoStore((state) => state?.removeTodo);
 
   const handleOk = () => {
     removeTodoAction(openModalState?.id);

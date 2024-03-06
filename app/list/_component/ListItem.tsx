@@ -1,8 +1,16 @@
 "use client";
-import { Button, ButtonProps, Checkbox, CheckboxProps, Flex } from "antd";
+import {
+  Button,
+  ButtonProps,
+  Checkbox,
+  CheckboxProps,
+  Flex,
+  Input,
+} from "antd";
 import { LIST_ITEM } from "../constant";
 import ModalConfirm from "./Modal";
 import useListTodoStore from "../store";
+import { useState } from "react";
 
 export default function ListItem({ listItem }: { listItem: LIST_ITEM }) {
   const { id, isChecked, value, isCompleted } = listItem;
@@ -18,7 +26,7 @@ export default function ListItem({ listItem }: { listItem: LIST_ITEM }) {
   };
   return (
     <Flex
-      className={`gap-[10px] items-center hover:bg-gray-100 border-b-[1px] p-[8px] ${
+      className={`gap-[10px] items-center hover:bg-gray-100 border-b-[1px] p-[8px] draggable ${
         isCompleted ? "line-through" : "no-underline"
       }`}
     >
@@ -26,12 +34,6 @@ export default function ListItem({ listItem }: { listItem: LIST_ITEM }) {
       <Button danger type="primary" onClick={onHandleDelete}>
         Delete
       </Button>
-      {/* <Button
-        type="default"
-        className="bg-lime-200 hover:bg-lime-300 hover:text-black hover:border-transparent"
-      >
-        Edit
-      </Button> */}
       <ModalConfirm />
     </Flex>
   );
